@@ -2,6 +2,8 @@ const express = require('express');
 const c = require('../controllers/robotController');
 const mapRt = require('./robotMapRoutes');
 const router = express.Router();
+const motionC = require('../controllers/motionController');
+const jackC = require('../controllers/jackController');
 
 router.get('/', c.getAll);
 router.get('/:id', c.getById);
@@ -11,6 +13,12 @@ router.delete('/', c.removeAll);
 router.delete('/:id', c.remove);
 router.post('/:id/move', c.moveToStation);
 router.use('/:id', mapRt);
+router.post('/:id/motion', motionC.openLoop);
+
+router.post('/:id/jack/height', jackC.setHeight);
+router.post('/:id/jack/load', jackC.load);
+router.post('/:id/jack/unload', jackC.unload);
+router.post('/:id/jack/stop', jackC.stop);
 
 
 module.exports = router;
